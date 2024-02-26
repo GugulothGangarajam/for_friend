@@ -36,7 +36,7 @@ public class WhatsAppSender {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
         // Recipient's phone number in E.164 format (including country code)
-        String to = "whatsapp:+1234567890"; // Replace with recipient's phone number
+        String to = "whatsapp:+91987654322"; // Replace with recipient's phone number
 
         // Message to send
         String messageBody = "Hello from Twilio!";
