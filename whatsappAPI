@@ -1,0 +1,67 @@
+To create a Twilio account SID and auth token, you need to sign up for a Twilio account and obtain these credentials from the Twilio console. Here's how you can do it:
+
+1. **Sign up for Twilio**: Go to the Twilio website (https://www.twilio.com/) and sign up for a new account. You'll need to provide your email address, password, and phone number.
+
+2. **Verify your email address and phone number**: After signing up, Twilio will send you a verification email and text message. Follow the instructions in the email and text message to verify your email address and phone number.
+
+3. **Access the Twilio console**: Once your account is verified, log in to the Twilio console using your email address and password.
+
+4. **Obtain your Account SID and Auth Token**: In the Twilio console, navigate to the dashboard or the "Project Info" section. You will find your Account SID and Auth Token there. These credentials are used to authenticate requests made to the Twilio API.
+
+5. **Securely store your credentials**: Ensure that you securely store your Account SID and Auth Token. Do not share these credentials publicly or hardcode them in your application source code. Instead, consider using environment variables or a secure configuration management system to manage your credentials.
+
+6. **Set up a Twilio WhatsApp number**: If you haven't already, you'll need to purchase a Twilio WhatsApp number and activate the WhatsApp sandbox. This number will be used to send WhatsApp messages through Twilio.
+
+Once you have obtained your Account SID, Auth Token, and set up a Twilio WhatsApp number, you can use them in your Java code to send WhatsApp messages programmatically, as described in the previous example.
+
+
+
+
++++++++++++=========================================code sample =================================================================================
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
+public class WhatsAppSender {
+    // Your Twilio Account SID and Auth Token
+    public static final String ACCOUNT_SID = "your_account_sid";
+    public static final String AUTH_TOKEN = "your_auth_token";
+
+    // Your Twilio WhatsApp phone number
+    public static final String TWILIO_PHONE_NUMBER = "your_twilio_whatsapp_phone_number";
+
+    public static void main(String[] args) {
+        // Initialize Twilio
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        // Recipient's phone number in E.164 format (including country code)
+        String to = "whatsapp:+1234567890"; // Replace with recipient's phone number
+
+        // Message to send
+        String messageBody = "Hello from Twilio!";
+
+        // Send the message
+        Message message = Message.creator(
+                new PhoneNumber(to),
+                new PhoneNumber(TWILIO_PHONE_NUMBER), // Twilio WhatsApp phone number
+                messageBody)
+                .create();
+
+        // Output the message SID to confirm it was sent
+        System.out.println("Message SID: " + message.getSid());
+    }
+}
+
+
+=========================================maven dependency =======================================
+
+<dependency>
+    <groupId>com.twilio.sdk</groupId>
+    <artifactId>twilio</artifactId>
+    <version>8.20.0</version>
+</dependency>
+
+
+
+
